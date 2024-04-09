@@ -30,5 +30,8 @@ app.mount('#app')
 export default createVuetify({
   icons: {
     defaultSet: 'mdi'
+  },
+  theme: {
+    dark: true,
   }
 })

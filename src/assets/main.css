@@ -17,6 +17,7 @@ a,
 @media (min-width: 1024px) {
   body {
     place-items: center;
+    background-color: black;
   }
 
   #app {

@@ -1,7 +1,7 @@
 <template>
-  <v-layout class="rounded rounded-md" style="width: 100%; display: flex">
+  <v-layout class="rounded rounded-md" style=" display: flex">
     <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
-    <v-main class="d-flex align-center justify-center mt-5 bg-black" style="min-height: 300px">
+    <v-main class="d-flex align-center justify-center mt-5 bg-black" style="min-height: 300px" theme="dark">
       <RouterView
         :class="{ 'router-view-expanded': !drawerOpen }"
         class="d-flex align-center justify-center mt-5 bg-black"
