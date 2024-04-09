@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
+      <h1 class="mb-4 d-flex align-center justify-center">PAGE</h1>
       <v-data-table
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
