@@ -1,33 +1,35 @@
 <template>
   <v-card class="mx-auto" width="300">
     <v-list v-model:opened="open">
-      <v-list-item prepend-icon="mdi-home" title="Home"></v-list-item>
+      <!-- <v-list-item prepend-icon="mdi-home" title="Home"></v-list-item> -->
 
-      <v-list-group value="Admin">
+      <v-list-group value="admins">
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" title="Admin"></v-list-item>
+          <v-list-item v-bind="props" title="Dữ liệu khách hàng"></v-list-item>
         </template>
 
         <v-list-item
-          v-for="([title, icon], i) in admins"
+          v-for="([title, icon, route], i) in admins"
           :key="i"
           :prepend-icon="icon"
           :title="title"
           :value="title"
+          :href="route"
         ></v-list-item>
       </v-list-group>
 
-      <v-list-group value="Actions">
+      <v-list-group value="cruds">
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" title="Actions"></v-list-item>
+          <v-list-item v-bind="props" title="Vay nợ"></v-list-item>
         </template>
 
         <v-list-item
-          v-for="([title, icon], i) in cruds"
+          v-for="([title, icon, route], i) in cruds"
           :key="i"
           :prepend-icon="icon"
           :title="title"
           :value="title"
+          :href="route"
         ></v-list-item>
       </v-list-group>
     </v-list>
@@ -38,14 +40,12 @@ export default {
   data: () => ({
     open: ['Users'],
     admins: [
-      ['Management', 'mdi-account-multiple-outline'],
-      ['Settings', 'mdi-cog-outline']
+      ['Thông tin khách hàng', 'mdi-account-multiple-outline', '/'],
+      ['Số dư', 'mdi-cog-outline', '/balance']
     ],
     cruds: [
-      ['Create', 'mdi-plus-outline'],
-      ['Read', 'mdi-file-outline'],
-      ['Update', 'mdi-update'],
-      ['Delete', 'mdi-delete']
+      ['Chi tiết vay nợ', 'mdi-plus-outline', '/margin'],
+      ['Dữ liệu chuyển đổi', 'mdi-file-outline', '/transfer']
     ]
   })
 }

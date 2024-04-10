@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
-      <h1 class="mb-4 d-flex align-center justify-center">PAGE</h1>
+      <h1 class="mb-4 d-flex align-center justify-center">Thông tin khách hàng</h1>
       <v-data-table
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -130,17 +130,12 @@
     data: () => ({
       itemsPerPage: 5,
       headers: [
-        {
-          title: 'Dessert (100g serving)',
-          align: 'start',
-          sortable: false,
-          key: 'name',
-        },
-        { title: 'Calories', key: 'calories', align: 'end' },
-        { title: 'Fat (g)', key: 'fat', align: 'end' },
-        { title: 'Carbs (g)', key: 'carbs', align: 'end' },
-        { title: 'Protein (g)', key: 'protein', align: 'end' },
-        { title: 'Iron (%)', key: 'iron', align: 'end' },
+        { title: 'Mã khách hàng', key: 'calories', align: 'end' },
+        { title: 'Số tài khoản', key: 'fat', align: 'end' },
+        { title: 'Họ tên', key: 'carbs', align: 'end' },
+        { title: 'Địa chỉ', key: 'protein', align: 'end' },
+        { title: 'CMND', key: 'iron', align: 'end' },
+        { title: 'Loại khách hàng', key: 'iron', align: 'end' },
       ],
       serverItems: [],
       loading: true,
