@@ -32,6 +32,11 @@
           :href="route"
         ></v-list-item>
       </v-list-group>
+      <v-list-item @click="logout">
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon><v-list-item-title>Đăng xuất</v-list-item-title>
+        </v-list-item-icon>
+      </v-list-item>
     </v-list>
   </v-card>
 </template>
@@ -47,6 +52,17 @@ export default {
       ['Chi tiết vay nợ', 'mdi-plus-outline', '/margin'],
       ['Dữ liệu chuyển đổi', 'mdi-file-outline', '/transfer']
     ]
-  })
+  }),
+  methods: {
+    async logout() {
+      try {
+        // Sử dụng this.$store.dispatch thay vì hook useStore()
+        await this.$store.dispatch('logout')
+        console.log(this.$store.dispatch('logout'));
+      } catch (error) {
+        console.error('Error occurred during logout:', error)
+      }
+    }
+  }
 }
 </script>
