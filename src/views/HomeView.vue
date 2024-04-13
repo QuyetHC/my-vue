@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
     <v-container fluid>
       <h1 class="mb-4 d-flex align-center justify-center">Thông tin khách hàng</h1>
       <v-data-table
@@ -17,8 +18,14 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue'; 
 import axios from 'axios'
 export default {
+  components: {
+    // LoginView,
+    // eslint-disable-next-line vue/no-reserved-component-names
+    Header
+  },
   data() {
     return {
       itemsPerPage: 5,
@@ -33,6 +40,7 @@ export default {
       serverItems: [],
       loading: true,
       totalItems: 0,
+      drawerOpen: false,
     };
   },
   mounted() {
@@ -50,6 +58,9 @@ export default {
         this.loading = false;
       }
     },
+    toggleDrawer() {
+      this.drawerOpen = !this.drawerOpen; 
+    }
   },
 };
 // const desserts = [
