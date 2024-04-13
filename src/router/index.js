@@ -18,7 +18,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       beforeEnter: (to, from, next) => {
-        if (sessionStorage.getItem("username") == null) next({ name: "login" });
+        if (localStorage.getItem("username") == null) next({ name: "login" });
         else next();
       },
       children: [
