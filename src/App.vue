@@ -19,30 +19,8 @@
 <script>
 // import LoginView from './views/LoginView.vue';
 // import Header from './components/Header.vue'; 
-import { mapState } from 'vuex'; // Import mapState từ Vuex
 
 export default {
-  // components: {
-  //   // LoginView,
-  //   // eslint-disable-next-line vue/no-reserved-component-names
-  //   Header
-  // },
-  computed: {
-    ...mapState(['isLoggedIn']), // Ánh xạ state isLoggedIn từ Vuex store
-  },
-  data() {
-    return {
-      drawerOpen: false,
-    };
-  },
-  methods: {
-    setAuth(authStatus) {
-      this.$store.commit('setLoggedIn', authStatus); 
-    },
-    // toggleDrawer() {
-    //   this.drawerOpen = !this.drawerOpen; 
-    // }
-  }
 }
 </script>
 
