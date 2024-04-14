@@ -58,7 +58,7 @@ export default {
         console.log(userData)
         if (userData.role === '1') {
           // Nếu là admin, chuyển hướng tới trang admin
-          this.$router.push('/admin')
+          this.$router.push('/')
         } else if (userData.role === '2') {
           // Nếu là user, chuyển hướng tới trang detail
           this.$router.push(`/detail/${userData.custid}`)
