@@ -41,6 +41,7 @@
   </v-card>
 </template>
 <script>
+import SessionService from '../stores/SessionService.js';
 export default {
   data: () => ({
     open: ['Users'],
@@ -56,9 +57,10 @@ export default {
   methods: {
     async logout() {
       try {
-        // Sử dụng this.$store.dispatch thay vì hook useStore()
-        await this.$store.dispatch('logout')
-        console.log(this.$store.dispatch('logout'));
+        // Xóa tên người dùng khỏi localStorage
+        SessionService.removeItem('userData')
+        // Chuyển hướng người dùng đến trang login hoặc trang chính
+        window.location.href = 'http://localhost:5173/login' // Thay đổi URL tùy theo nhu cầu của bạn
       } catch (error) {
         console.error('Error occurred during logout:', error)
       }

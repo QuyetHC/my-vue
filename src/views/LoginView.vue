@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+import SessionService from '../stores/SessionService.js';
 // import router from '../router'
 import axios from 'axios'
 export default {
@@ -49,31 +50,23 @@ export default {
   methods: {
     async attemptLogin() {
       try {
-        
-        const response = await axios.post(`http://localhost:8080/getlogin?username=${this.input.username}&passwd=${this.input.password}`);
-        const username = response.data.username;
-        localStorage.setItem("username", username);
-        console.log(username)
-        window.location.href = "http://localhost:5173/";
+        const response = await axios.post(
+          `http://localhost:8080/getlogin?username=${this.input.username}&passwd=${this.input.password}`
+        )
+        const userData = response.data.loginList[0];
+        SessionService.setItem('userData', userData)
+        console.log(userData)
+        if (userData.role === '1') {
+          // Nếu là admin, chuyển hướng tới trang admin
+          this.$router.push('/admin')
+        } else if (userData.role === '2') {
+          // Nếu là user, chuyển hướng tới trang detail
+          this.$router.push(`/detail/${userData.custid}`)
+        }
       } catch (error) {
         console.error('Error occurred during login:', error)
       }
     }
-  //   async attemptLogin() {
-  // try {
-  //   // Kiểm tra tên người dùng và mật khẩu có phù hợp hay không
-  //   if (this.input.username === 'admin' && this.input.password === 'admin') {
-  //     // Đăng nhập thành công, lưu tên người dùng vào localStorage và chuyển hướng đến trang home
-  //     localStorage.setItem("username", this.input.username);
-  //     window.location.href = "http://localhost:5173/";
-  //   } else {
-  //     // Đăng nhập không thành công, hiển thị thông báo lỗi
-  //     console.error('Invalid username or password');
-  //   }
-  // } catch (error) {
-  //   console.error('Error occurred during login:', error);
-  // }
-
   }
 }
 </script>
