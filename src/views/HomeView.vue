@@ -2,7 +2,7 @@
   <v-app>
     <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
     <v-container fluid>
-      <h1 class="mb-4 d-flex align-center justify-center">Thông tin khách hàng</h1>
+      <h1 class="mb-4 d-flex align-center justify-center" style="padding-top: 60px;">Thông tin khách hàng</h1>
       <v-data-table
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
