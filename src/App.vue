@@ -5,7 +5,7 @@
     <!-- <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header> -->
     <v-main
       class="d-flex align-center justify-center mt-2 bg-black"
-      style="min-height: 300px"
+      style="min-height: 700px"
       theme="dark"
     >
       <RouterView

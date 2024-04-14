@@ -80,7 +80,6 @@ export default {
 .login-container {
   background-color: darkkhaki !important;
   padding: 20px;
-  margin-top: 150px !important;
   border-radius: 10px;
 }
 </style>
