@@ -1,4 +1,5 @@
 <template>
+  <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
   <div
     class="mx-auto flex-column"
     style="
@@ -36,8 +37,13 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue'
 import axios from 'axios'
 export default {
+  components: {
+    // eslint-disable-next-line vue/no-reserved-component-names
+    Header
+  },
   props: ['custid'],
   data() {
     return {
