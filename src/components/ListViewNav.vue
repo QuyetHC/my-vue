@@ -1,11 +1,10 @@
 <template>
   <v-card class="mx-auto" width="300">
-    <v-list v-model:opened="open">
-      <v-list-group v-if="isAdmin" value="admins">
+    <v-list v-model:opened="open" v-if="isAdmin">
+      <v-list-group value="admins">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" title="Dữ liệu khách hàng"></v-list-item>
         </template>
-
         <v-list-item
           v-for="([title, icon, route], i) in admins"
           :key="i"
@@ -15,8 +14,27 @@
           :href="route"
         ></v-list-item>
       </v-list-group>
-
-      <v-list-group v-else-if="isTwo" value="detail">
+      <v-list-group value="cruds">
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props" title="Dữ liệu khách hàng"></v-list-item>
+        </template>
+        <v-list-item
+          v-for="([title, icon, route], i) in cruds"
+          :key="i"
+          :prepend-icon="icon"
+          :title="title"
+          :value="title"
+          :href="route"
+        ></v-list-item>
+      </v-list-group>
+      <v-list-item @click="logout">
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon><v-list-item-title>Đăng xuất</v-list-item-title>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-list>
+    <v-list v-model:opened="open" v-else>
+      <v-list-group value="detail">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" title="Thông tin chi tiết"></v-list-item>
         </template>
@@ -30,7 +48,6 @@
           :href="route"
         ></v-list-item>
       </v-list-group>
-
       <v-list-item @click="logout">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon><v-list-item-title>Đăng xuất</v-list-item-title>
@@ -63,18 +80,18 @@ export default {
   methods: {
     async checkUserRole() {
       try {
-        const userRole = SessionService.getItem('userData');
+        const userRole = SessionService.getItem('userData')
         if (userRole.role === '1') {
-          this.isAdmin = true;
+          this.isAdmin = true
         } else if (userRole.role === '2') {
-          this.isTwo = true;
+          this.isTwo = true
           this.detail = [
             ['Thông tin chi tiết', 'mdi-account-multiple-outline', `/detail/${userRole.custid}`],
             ['Thông tin số dư', 'mdi-cog-outline', '/transfer']
-          ];
+          ]
         }
       } catch (error) {
-        console.error('Error occurred while checking user role:', error);
+        console.error('Error occurred while checking user role:', error)
       }
     },
     async logout() {
@@ -82,14 +99,14 @@ export default {
         // Xóa tên người dùng khỏi localStorage
         SessionService.removeItem('userData')
         // Chuyển hướng người dùng đến trang login hoặc trang chính
-        window.location.href = 'http://localhost:5173/login' 
+        window.location.href = 'http://localhost:5173/login'
       } catch (error) {
         console.error('Error occurred during logout:', error)
       }
     }
   },
   created() {
-    this.checkUserRole();
+    this.checkUserRole()
   }
 }
 </script>
