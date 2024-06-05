@@ -5,6 +5,7 @@ import TransferView from '../views/TransferView.vue'
 import MarginView from '../views/MarginDetailView.vue'
 import LoginView from '../views/LoginView.vue'
 import CustDetail from '@/views/CustDetail.vue'
+import CreditScoreDashboard from '@/views/CreditScoreDashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,12 @@ const router = createRouter({
       path: '/margin',
       name: 'margin',
       component: MarginView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/reportcredit',
+      name: 'reportcredit',
+      component: CreditScoreDashboard,
       meta: { requiresAuth: true }
     },
     {

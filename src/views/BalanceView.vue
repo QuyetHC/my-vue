@@ -2,7 +2,7 @@
 <template>
     <v-app>
       <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
-      <v-container fluid>
+      <v-container :class="drawerOpen ? 'with-drawer' : 'without-drawer'" fluid>
         <h1 class="mb-4 d-flex align-center justify-center" style="padding-top: 60px;">Số dư</h1>
         <v-data-table
           v-model:items-per-page="itemsPerPage"
@@ -30,11 +30,12 @@ export default {
     return {
       itemsPerPage: 5,
       headers: [
-           { title: 'Số tài khoản', key: 'acctno', align: 'end' },
-           { title: 'Tiểu khoản', key: 'afacctno', align: 'end' },
-           { title: 'Chứng khoán', key: 'codeId', align: 'end' },
-           { title: 'Số dư tiền', key: 'trade', align: 'end' },
-           { title: 'Số dư chứng khoán', key: 'costprice', align: 'end' },
+           { title: 'Mã khách hàng', key: 'custid', align: 'end' },
+           { title: 'Số tài khoản', key: 'acct', align: 'end' },
+           { title: 'Giá trị tài sản hiện tại', key: 'value', align: 'end' },
+           { title: 'Số lượng hạn mức tín dụng', key: 'clno', align: 'end' },
+           { title: 'Tỷ lệ nợ/thu nhập', key: 'debtnic', align: 'end' },
+           { title: 'Giá trị tín dụng chưa thanh toán', key: 'delinq', align: 'end' },
       ],
       serverItems: [],
       loading: true,
@@ -48,7 +49,7 @@ export default {
     async loadData() {
       try {
         this.loading = true;
-        const response = await axios.get('http://localhost:8080/getsema');
+        const response = await axios.get('http://localhost:8080/getbance');
         this.serverItems = response.data;
         this.loading = false;
       } catch (error) {
@@ -59,4 +60,20 @@ export default {
   },
 };
   </script>
-  
+  <script setup>
+  import { ref } from 'vue';
+  const drawerOpen = ref(false);
+  const toggleDrawer = (isOpen) => {
+    drawerOpen.value = isOpen;
+  };
+  </script>
+  <style scoped>
+  .with-drawer {
+    margin-left: 299px;
+    transition: margin-left 0.3s ease;
+  }
+  .without-drawer {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+  }
+  </style>

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header @drawerToggle="toggleDrawer" :drawerOpen="drawerOpen"></Header>
-    <v-container fluid>
+    <v-container :class="drawerOpen ? 'with-drawer' : 'without-drawer'" fluid>
       <h1 class="mb-4 d-flex align-center justify-center" style="padding-top: 60px;">Thông tin khách hàng</h1>
       <v-data-table
         v-model:items-per-page="itemsPerPage"
@@ -21,6 +21,7 @@
             <td class="flex align-center" style="text-align: center;">{{ item.addr }}</td>
             <td class="flex align-center" style="text-align: center;">{{ item.idCode }}</td>
             <td class="flex align-center" style="text-align: center;">{{ item.custtype }}</td>
+            <td class="flex align-center" style="text-align: center;">{{ item.score }}</td>
             <td class="flex align-center" style="text-align: center;">
             <router-link :to="{ name: 'detail', params: { custid: item.custid }}">Chi tiết</router-link>
             </td>
@@ -42,7 +43,7 @@ export default {
   },
   data() {
     return {
-      itemsPerPage: 5,
+      itemsPerPage: 6,
       headers: [
         { title: 'Mã khách hàng', key: 'custid', align: 'center' },
         { title: 'Số tài khoản', key: 'custodycd', align: 'center' },
@@ -50,6 +51,7 @@ export default {
         { title: 'Địa chỉ', key: 'addr', align: 'center' },
         { title: 'CMND', key: 'idCode', align: 'center' },
         { title: 'Loại khách hàng', key: 'custtype', align: 'center' },
+        { title: 'Điểm tín dụng', key: 'score', align: 'center' },
         { title: 'Chỉnh sửa', key: 'edit', align: 'center' } // Thêm cột chỉnh sửa
       ],
       serverItems: [],
@@ -93,3 +95,20 @@ export default {
   }
 }
 </script>
+<script setup>
+import { ref } from 'vue';
+const drawerOpen = ref(false);
+const toggleDrawer = (isOpen) => {
+  drawerOpen.value = isOpen;
+};
+</script>
+<style scoped>
+.with-drawer {
+  margin-left: 299px;
+  transition: margin-left 0.3s ease;
+}
+.without-drawer {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+</style>

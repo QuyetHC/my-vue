@@ -8,6 +8,7 @@
       color: #318ac6 !important;
       border-radius: 15px;
     "
+    :class="drawerOpen ? 'with-drawer' : 'without-drawer'"
   >
     <div class="info-header font-weight-black text-center pt-4">Thông tin chi tiết</div>
 
@@ -31,6 +32,10 @@
       <div class="pt-4 text-center pb-4">
         <span style="color: black; display: block">Loại khách hàng:</span>
         {{ customerDetail.custtype }}
+      </div>
+      <div class="pt-4 text-center pb-4">
+        <span style="color: black; display: block">Điểm tín dụng:</span>
+        {{ customerDetail.score }}
       </div>
     </div>
   </div>
@@ -62,7 +67,22 @@ export default {
   }
 }
 </script>
+<script setup>
+import { ref } from 'vue';
+const drawerOpen = ref(false);
+const toggleDrawer = (isOpen) => {
+  drawerOpen.value = isOpen;
+};
+</script>
 <style>
+.with-drawer {
+  margin-left: 299px;
+  transition: margin-left 0.3s ease;
+}
+.without-drawer {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
 .info-header {
   background-color: #e2e2e2;
   color: #318ac6;

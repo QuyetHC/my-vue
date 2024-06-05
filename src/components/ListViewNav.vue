@@ -16,10 +16,23 @@
       </v-list-group>
       <v-list-group value="cruds">
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" title="Dữ liệu khách hàng"></v-list-item>
+          <v-list-item v-bind="props" title="Thông tin vay nợ"></v-list-item>
         </template>
         <v-list-item
           v-for="([title, icon, route], i) in cruds"
+          :key="i"
+          :prepend-icon="icon"
+          :title="title"
+          :value="title"
+          :href="route"
+        ></v-list-item>
+      </v-list-group>
+      <v-list-group value="cruds">
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props" title="Báo cáo tín dụng"></v-list-item>
+        </template>
+        <v-list-item
+          v-for="([title, icon, route], i) in reports"
           :key="i"
           :prepend-icon="icon"
           :title="title"
@@ -68,6 +81,10 @@ export default {
     cruds: [
       ['Chi tiết vay nợ', 'mdi-plus-outline', '/margin'],
       ['Dữ liệu chuyển đổi', 'mdi-file-outline', '/transfer']
+    ],
+    reports: [
+      ['Báo cáo phân bổ', 'mdi-plus-outline', '/reportcredit'],
+      ['Điểm tín dụng trung bình', 'mdi-file-outline', '/avgcredit']
     ],
     detail: [],
     // detail: [
