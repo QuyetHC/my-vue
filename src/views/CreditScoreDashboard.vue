@@ -6,8 +6,11 @@
       <h2>Điểm tín dụng trung bình: {{ averageCreditScore }}</h2>
     </div>
     <div class="charts">
-      <BarChart :chart-data="barChartData" v-if="barChartData" />
-      <PieChart :chart-data="pieChartData" v-if="pieChartData" />
+      <!-- Biểu đồ Bar Chart -->
+      <div ref="barChart" class="chart-container"></div>
+      
+      <!-- Biểu đồ Pie Chart -->
+      <div ref="pieChart" class="chart-container"></div>
     </div>
     <p v-if="!barChartData || !pieChartData">Loading...</p>
   </div>
@@ -15,14 +18,10 @@
 
 <script>
 import axios from 'axios';
-import BarChart from '@/components/BarChart.vue';
-import PieChart from '@/components/PieChart.vue';
+import Highcharts from 'highcharts'; // Import Highcharts
 
 export default {
-  components: {
-    BarChart,
-    PieChart
-  },
+  name: 'HighchartsExample',
   data() {
     return {
       customers: [],
@@ -73,31 +72,48 @@ export default {
         else if (score >= 800 && score <= 850) scoreRanges['800-850']++;
       });
 
-      this.barChartData = {
-        labels: Object.keys(scoreRanges),
-        datasets: [
-          {
-            label: 'Số lượng khách hàng',
-            backgroundColor: '#42A5F5',
-            data: Object.values(scoreRanges)
+      this.renderBarChart(scoreRanges);
+      this.renderPieChart(scoreRanges);
+    },
+    renderBarChart(scoreRanges) {
+      const options = {
+        chart: {
+          renderTo: this.$refs.barChart,
+          type: 'bar'
+        },
+        title: {
+          text: 'Biểu đồ Bar Chart'
+        },
+        xAxis: {
+          categories: Object.keys(scoreRanges)
+        },
+        yAxis: {
+          title: {
+            text: 'Số lượng khách hàng'
           }
-        ]
+        },
+        series: [{
+          name: 'Số lượng khách hàng',
+          data: Object.values(scoreRanges)
+        }]
       };
-
-      console.log('Bar Chart Data:', this.barChartData); // Kiểm tra dữ liệu biểu đồ
-
-      this.pieChartData = {
-        labels: Object.keys(scoreRanges),
-        datasets: [
-          {
-            label: 'Tỷ lệ khách hàng',
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0'],
-            data: Object.values(scoreRanges)
-          }
-        ]
+      Highcharts.chart(options);
+    },
+    renderPieChart(scoreRanges) {
+      const options = {
+        chart: {
+          renderTo: this.$refs.pieChart,
+          type: 'pie'
+        },
+        title: {
+          text: 'Biểu đồ Pie Chart'
+        },
+        series: [{
+          name: 'Tỉ lệ khách hàng',
+          data: Object.entries(scoreRanges).map(([key, value]) => ({ name: key, y: value }))
+        }]
       };
-
-      console.log('Pie Chart Data:', this.pieChartData); // Kiểm tra dữ liệu biểu đồ
+      Highcharts.chart(options);
     }
   }
 };
@@ -112,5 +128,10 @@ h1, h2 {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.chart-container {
+  width: 600px;
+  height: 400px;
 }
 </style>
